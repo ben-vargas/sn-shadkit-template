@@ -70,14 +70,16 @@ After deployment, you should see a new scoped application in your instance. Navi
 
 To make Vite, Tailwind, and Shadcn work with ServiceNow’s Rollup build process, the following adjustments were made in `now.prebuild.mjs`:
 
-- **Tailwind** – Compile `index.css` into `index.build.css`, which is then bundled.  
-- **Environment Variables** – Include baseline variables (mode/dev/prod/baseUrl) for use inside ServiceNow.  
+**PLEASE NOTE:** As of version 4.12.1 of the SDK, some of these build modifications are no longer required and have been reverted.
+
+- ~~**Tailwind** – Compile `index.css` into `index.build.css`, which is then bundled.~~
+- **Environment Variables** – Include baseline variables (mode/dev/prod/baseUrl) for use inside ServiceNow.
 - **Alias Plugin** – Map `@` to `src/client` for cleaner imports.  
-- **nodeResolve Plugin** – Handle resolution of hoisted dependencies in `node_modules`.  
-- **url Plugin** – Map image imports from `src/client/assets` to their deployed counterparts.
+- ~~**nodeResolve Plugin** – Handle resolution of hoisted dependencies in `node_modules`.~~
+- ~~**url Plugin** – Map image imports from `src/client/assets` to their deployed counterparts.~~
 - **Manual Chunking** - Manually chunked some of the larger dependencies sn-shadcn-kit makes use of into their own jsdbx files. These chunks will only apply if you import any components that require them.
 
-*Quick note on tailwind* - If you find when deploying to ServiceNow some tailwind classes you have added to your app do not get applied, then go to the sys_app record for your scope and find the index.build.css application file and delete it, then re-deploy the app. I have noticed sometimes this file doesn't get refreshed when changes have been made to it and i'm not sure why.
+~~*Quick note on tailwind* - If you find when deploying to ServiceNow some tailwind classes you have added to your app do not get applied, then go to the sys_app record for your scope and find the index.build.css application file and delete it, then re-deploy the app. I have noticed sometimes this file doesn't get refreshed when changes have been made to it and i'm not sure why.~~
 
 ---
 
